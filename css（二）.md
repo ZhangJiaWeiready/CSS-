@@ -199,7 +199,9 @@
 		* /*Y正值表示推动右胳膊，负值表示推左胳膊*/
             /*X正值表示推动脑袋，负值推腿*/
             /*Z正值表示顺时针转，负值逆时针转*/
-	transform中的个数尽量都相同
+transform中的个数尽量都相同
+transform只能对块级元素有用
+transform可以设置没有宽高的元素的垂直对齐	
 ### 04、3D变换/动画
 	1.3D变换
 	![](https://i.imgur.com/IRn9XxQ.jpg)
@@ -317,13 +319,13 @@
 * - 老版本的box通过两个属性四个属性值控制了主轴的位置和方向
 * 2.新版  flex
 * display：flex/ -webkit-flex
-	* a：容器的布局方向/排列方向 
+	* A：容器的布局方向/排列方向 
 		* 主轴：flex-direction
 			* row - 主轴为水平x轴
 			* column - 主轴为垂直y轴		
 			* row-reverse - x轴方向反
 			* column-reverse - y轴方向反
-	* b：富裕空间的管理（只是确定富裕空间的位置，不给项目分配） 
+	* B：富裕空间的管理（只是确定富裕空间的位置，不给项目分配） 
 		* 主轴 flex-content
 			* flex-start 在主轴的正方向
 			* flex-end 在主轴的反方向
@@ -336,14 +338,14 @@
 			* center 在两边
 			* baseline 基线对齐
 			* stretch 等高布局（项目没有高度）
-	* c：弹性空间的管理
+	* C：弹性空间的管理
 		* flex-grow
 		* 按比例分
-	* d：容器
+	* D：容器
 		* flex-wrap 控制容器为单行/列还是多行/列，定义了侧轴的方向
-			*  nowrap
-			*  wrap
-			*  wrap-reverse
+			*  nowrap 不换行
+			*  wrap 换行 - 侧轴方向由上到下
+			*  wrap-reverse 换行- 侧轴方向由下到上
 		*  align-content 定义侧轴上的位置 一行的时候无效
 			*  flex-start
 			*  flex-end
@@ -352,35 +354,62 @@
 			*  stretch
 		* flex-flow 是属性flex-direction和flex-wrap的简写
 			* row nowrap 默认值 不继承  
-	* e：项目
-		*  order 定义项目的布局顺序 
+	* E：项目
+		*  order 定义项目的排列顺序 
 			*  值为number 
 			*  order越大越后面
 		* align-self  对项目的某一个进行设置对齐flex元素，并覆盖align-items的值 
-		* flex-shrink
+		* flex-shrink （默认值为1）
 			* 指定flex元素的收缩因子 默认值为1 
-		* flex-basis
-			* 指定了flex元素在主轴方向上的出使大小
+			* 计算规则
+		* flex-basis （默认auto）
+			* 指定了flex元素在主轴方向上的初始大小
+			* 伸缩规则计算 的基准值（默认为width）
 		默认值为0
 		* flex 是flex-grow/flex-shrink/flex-basis的简写属性
-	* F：：
+			* 控制了主轴和侧轴是哪一根，还有方向
+	* F：收缩和弹性的计算规则：
 		* flex-shrink（收缩） 默认值为1 只有在 flex-wrap:nowrap时才有作用
 			* 计算收缩因子与基准值乘的总和
+				*var a = flex-shirink*flex-basis之和
 			* 计算收缩因数 
-				* 收缩因数=（项目的收缩因子*项目基准值）/第一步计算总和  
+				* 收缩因数=（项目的收缩因子*项目基准值）/第一步计算总和 
+				*  var b = （flex-shrink*flex-basis）/a
 			* 移除空间的计算
 				* 移除空间= 项目收缩因数 x 负溢出的空间 
-		* flex-grow/box-flex(拉伸)默认值为0
+				* var c = b*溢出的空间
+		* flex-grow/box-flex(弹性拉伸) 默认值为0
 			*  可用空间 = (容器大小 - 所有相邻项目flex-basis的总和)
 			*  可扩展空间 = (可用空间/所有相邻项目flex-grow的总和)
 			*  每项伸缩大小 = (伸缩基准值 + (可扩展空间 x flex-grow值))
 * - 新版本的flex通过一个属性四个属性值控制了主轴的位置和方向	
 
-
-
-
-
+	* G :flex 等分布局
+		* flex：1； 大于1后效果都一样
+		* flex-shrink/flex-grow/flex-basis
+		*      1           1        0%
+		* flex默认值	
+			* ：flex-grow默认值为0；
+			* ：flex-shrink默认值1；
+			* ：flex-basis默认值为auto；
+		* 为flex设置值后
+			*  ：flex-shrink值为1；
+			*  ：flex-grow值为1；
+			*  ：flex-basis值为auto；
+	* H :align-content/align-self/align-items谁的层级高？
+		* align-content > align-self > align-items      
 * flex-wrap: nowrap/wrap/wrap-reverse
 * flex-flow:可写 flex方向和换行
-* align-content：--控制纵轴的排列方式
-* justify-content：--控制水平x轴的排列方式
+* justify-content：--控制水平x轴的富裕空间
+* align-items :控制侧轴的富裕空间。
+* align-self：控制单个项目的富裕空间。优先级（比上面一个）高
+* align-content：当项目多行的时候，控制侧轴的位置。 优先级（比上面俩）高
+* flex-basis 初始化基准值
+* flex-shrink 
+* flex-grow 把富裕空间分配给单个项目 按比例 num
+* flex-flow flex-direction/flexwrap的简写属性
+* flex-wrap 项目是否换行
+* box-flex
+* flex
+* order  控制项目谁在前
+
