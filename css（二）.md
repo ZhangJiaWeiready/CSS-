@@ -344,7 +344,7 @@
 			*  nowrap
 			*  wrap
 			*  wrap-reverse
-		*  flex-content 定义侧轴上的位置 一行的时候无效
+		*  align-content 定义侧轴上的位置 一行的时候无效
 			*  flex-start
 			*  flex-end
 			*  center
