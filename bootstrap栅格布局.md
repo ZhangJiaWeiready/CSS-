@@ -1,9 +1,9 @@
 #bootstrap
 ##响应式布局
 * 使用时必须在head标签中加入meta标签，使其对移动设备有效
-	* meta name=“viewport” content=“width=width-device，initial-scale=1.0，user-scalable=no ”
+	* <meta name=“viewport” content=“width=width-device，initial-scale=1.0，user-scalable=no ”>
 ###布局（包裹）容器
-1. 流体布局（弹性布局） .container-fluid---> 相当于width为100% --> 宽度占满整个屏幕  但是由于加上了box-sizing：border-box；所以盒子大小还是在里面。
+1. 流体布局（弹性布局） .container-fluid---> 相当于width为auto --> 宽度占满整个屏幕  但是由于加上了box-sizing：border-box；所以盒子大小还是在里面。
 
 	2.固定容器
 				阈值						width
@@ -16,13 +16,16 @@
 			小于992
 			
 			小于768(xs 移动手机)			auto
-	3.栅格系统
+	
+3.栅格系统
 		
-
+** width100%   加padding的时候会出现滚动条，
+** width：auto  加padding的时候是往里面扣
 ###栅格源码分析
 	1.流体容器&固定容器 公共样式
-	  margin-right: auto;
-	  margin-left: auto;
+	  margin-right: auto;    --> 行居中
+	  margin-left: auto;     --> 行居中
+		
 	  padding-left:  15px;
 	  padding-right: 15px;	
 	
@@ -90,15 +93,17 @@
 			  .loop-grid-columns(@grid-columns, @class, offset);
 			  		
 ###响应式工具
-		
+visible-xs 在xs屏幕大小的情况下显示
+hidden-xs 在xs屏幕大小的情况下隐藏		
 ###栅格盒模型设计的精妙之处
 	容器两边具有15px的padding	、
 	行    两边具有-15px的margin	
 	列    两边具有15px的padding
 	
-	为了维护槽宽的规则，
+	（1）为了维护槽宽的规则，
 		列两边必须得要15px的padding
-	为了能使列嵌套行
+	（2）为了能使列嵌套行 
 		行两边必须要有-15px的margin
-	为了让容器可以包裹住行
+	（3）为了让容器可以包裹住行
 		容器两边必须要有15px的padding
+####阈值上的值不能跳跃，要写都写 
